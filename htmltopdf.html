@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>HTML TO PDF</title>
+  <script src="js/jquery.min.js"></script>
+  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet"
+    id="bootstrap-css">
+  <link href="./css/style.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="container">
+    <h1>Invoice Generator</h1>
+    <form id="invoice-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" id="address" required>
+      </div>
+      <div class="form-group">
+        <label for="item">Item name</label>
+        <input type="text" id="item" required>
+      </div>
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number" id="price" required>
+      </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input type="number" id="quantity" required>
+      </div>
+      <div class="form-group">
+        <label for="gstRate">gstRate</label>
+        <select id="gstPercent">
+          <option value="0">0</option>
+          <option value="5">5</option>
+          <option value="12">12</option>
+          <option value="18">18</option>
+          <option value="28">28</option>
+        </select>
+      </div>
+      <button type="button" onclick="addItem()">Add Item</button>
+    </form>
+  </div>
+
+
+  <div id="invoice" class="invoiced">
+    <header>
+      <h6>TAX INVOICE</h6>
+      <div class="company-details">
+        <h1>M/S SRI SUN FARMS</h1>
+        <p>Auroville Main Road, Near AMI, Auroville - 6050101.</p>
+        <p>Ph. No: 0413 2969364</p>
+        <p>GSTIN: 33GKUPP149D1ZY</p>
+        <p>E-Mail: sunfarm50@gmail.com</p>
+      </div>
+    </header>
+    <article>
+      <!-- <hr /> -->
+      <section class="buyer-details">
+        <div class="buyer-info">
+          <p><strong>Buyer Details</strong></p>
+          <p><strong>To:</strong> M/S <span id="buyerName"></span></p>
+          <p><strong>Address:</strong> <span id="buyerAddress"></span></p>
+        </div>
+        <hr class="divition" />
+        <div class="invoice-info">
+          <p>Invoice No: SSF <span id="timing"></span>/<span id="count">1</span></p>
+          <p>Invoice Date: <span id="todayDate"></span></p>
+        </div>
+      </section>
+      <!-- <hr /> -->
+      <table id="invoice-table">
+        <thead>
+          <tr>
+            <th>SL No.</th>
+            <th>item name</th>
+            <th>HSN/SAC Code</th>
+            <th>Quantity</th>
+            <th>price ₹</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody id="invoice-body">
+          <!-- Items will be added here -->
+        </tbody>
+      </table>
+      <p class="words"> Invoice amount-in-words:</p>
+      <span id="amount-in-words"></span>
+      <p class="totals">Grand Total: &#8377;<span id="grand-total">0</span></p>
+      <hr style="border: 1px solid black; width: 100%;" />
+      <table>
+        <tr>
+          <th>HSN</th>
+          <th>GST%</th>
+          <th>CGST@</th>
+          <th>SGST@</th>
+          <th>IGST@</th>
+          <th>Taxable value</th>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td id="gstscore"></td>
+          <td>-</td>
+          <td>-</td>
+          <td>&#8377;<span id="gstvalue">0</span></td>
+          <td>
+            <p>&#8377;<span id="grand-totals">0</span></p>
+          </td>
+        </tr>
+      </table>
+      <p colspan="5">taxable amount in words:</p>
+      <span id="taxAmountWords"></span>
+      <p class="totals">Tax Total:&#8377;<span id="taxed" class="taxed">0</span></p>
+      <hr style="border: 1px solid black; width: 100%;" />
+
+      <ul class="details-section">
+        <li class="customer_sign">
+          <p class="side">Customer Signature & Seal</p>
+        </li>
+        <li class="bank-details">
+          <p><strong>Bank Details :</strong></p>
+          <p>CA A/c. No.: <span>163105500190</span></p>
+          <p>Bank: <span>ICICI BANK,</span></p>
+          <p>IFS Code: <span>ICIC0001631</span></p>
+          <p>Name: <span>SRI SUN FARMS</span></p>
+        </li>
+        <li class="signature">
+          <p>for M/S SRI SUN FARMS</p>
+          <p class="signed">Authorized Signature</p>
+        </li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="btn"><a href="javascript:void(0)" class="btn-download">Download PDF </a></div>
+
+
+
+  <script src="js/jspdf.debug.js"></script>
+  <script src="js/html2pdf.min.js"></script>
+  <script src="./js/app.js"></script>
+
+
+  <script>
+    const date = new Date();
+    const h = date.getHours();
+    const m = date.getMinutes();
+    let count = 1;
+    document.getElementById('todayDate').innerHTML = date.toDateString();
+    document.getElementById('timing').innerHTML = `${h} - ${m}`;
+
+    const btn = document.getElementsByClassName("btn");
+    const counts = document.getElementById("count");
+
+    btn.onclick = function () {
+      count++;
+      counts.innerHTML = count;
+    }
+
+    const options = {
+      margin: 0.5,
+      filename: 'invoice.pdf',
+      jsPDF: {
+        unit: 'in',
+        format: 'letter',
+        orientation: 'portrait'
+      }
+    }
+
+    $('.btn-download').click(function (e) {
+      e.preventDefault();
+      const element = document.getElementById('invoice');
+      html2pdf().from(element).set(options).save();
+    });
+
+
+    function printDiv(divName) {
+      var printContents = document.getElementById(divName).innerHTML;
+      var originalContents = document.body.innerHTML;
+
+      document.body.innerHTML = printContents;
+
+      window.print();
+
+      document.body.innerHTML = originalContents;
+    }
+  </script>
+
+
+
+</body>
+
+</html>

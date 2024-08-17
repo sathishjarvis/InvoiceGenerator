@@ -1,0 +1,246 @@
+/* heading */
+
+.container {
+  max-width: 600px;
+  margin: 10px 450px;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+@media screen and (max-width:1240px) {
+  .container{
+    width: 400px;
+    margin: 10px 300px;
+  }
+}
+
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+.divition{
+  border: 1px solid black;
+  height: 100px;
+  margin: 0 !important;
+}
+.words{
+  width: fit-content;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: calc(100% - 20px);
+  padding: 8px;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+button:hover {
+  background-color: #218838;
+}
+
+.btn{
+  background-color: #28a745;
+  width: fit-content;
+  margin:10px 500px;
+  padding: 10px 10px;
+  border-radius: 5px;
+}
+.btn-download{
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  display: table;
+}
+
+th,
+td {
+  padding: 5px;
+  border: 1px solid black;
+  text-align: center;
+  border-right:2px solid black !important;
+}
+th{
+  border-bottom: 2px solid black !important;
+}
+
+.invoiced {
+  box-sizing: border-box;
+  height: 950px;
+  margin: 0 auto;
+  overflow: hidden;
+  padding: 0.5in;
+  width: 700px;
+  background: #fff;
+  box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
+  border: 2px solid black;
+}
+
+/* header */
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
+
+.invoice {
+  width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+header {
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 0.5;
+  margin-top: -22px;
+}
+
+.company-details {
+  margin-top: 10px;
+}
+
+.buyer-details,
+.item-details,
+.amount-details,
+.footer {
+  margin-bottom: 10px;
+}
+
+.buyer-details {
+  display: flex;
+  justify-content: space-between;
+  border: 2px solid black;
+  padding: 5px 5px;
+}
+
+.buyer-info,
+.invoice-info {
+  width: 48%;
+ 
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+}
+
+table th,
+table td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table tfoot {
+  font-weight: bold;
+}
+
+.footer {
+  font-size: 0.9em;
+}
+
+.signature {
+  text-align: center;
+  border-right: none;
+}
+
+.jurisdiction {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.totals{
+  float: right;
+  margin-top: -33px;
+}
+.taxed{
+  font-size: x-large;
+  margin-right: 10px;
+}
+
+span{
+  font-weight: 600 !important;
+}
+ul li{
+  padding: 2px;
+  border-right: 1px solid black;
+}
+.details-section{
+  list-style-type: none;
+  display: flex;
+  border: 2px solid black;
+  width: 99%;
+}
+.customer_sign{
+  padding-top: 100px;
+}
+.side{
+  margin-right: 10px;
+}
+
+.signed{
+  padding-top: 70px;
+}
+
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+  html {
+    background: none;
+    padding: 0;
+  }
+  body {
+    box-shadow: none;
+    margin: 0;
+  }
+  span:empty {
+    display: none;
+  }
+  .add,
+  .cut {
+    display: none;
+  }
+}
+
+@page {
+  margin: 0;
+}
